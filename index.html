@@ -10,6 +10,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" href="images/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css">
+    <script src="moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/en-gb.js" integrity="sha256-aTgx0CTTED3qZtyezqOlG3e04BkBaEzWDwNT1O4TGVo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -33,7 +35,7 @@
             </div>
         </div><!-- End of container-fluid -->
         <hr class="my-3">
-        <p id="author"></p>
+        <p id="placeholder"></p>
         <p class="lead">
             <a class="btn btn-primary btn-lg" href="#" role="button" id="getAnotherQuote">Get another quote!</a>
         </p>
@@ -42,12 +44,13 @@
       <div class="container">
         <p class="text-muted">
             <p>
-                <a id="tweetButton" href="#"+quoteText+authorText+"><i class="fa fa-twitter fa-5x"></i></a>
+                <a id="tweetButton" href="#"><i class="fa fa-twitter fa-5x"></i></a>
             </p>
         </p>
       </div>
     </footer>
     <!-- Javascript includes go here, for performance -->
     <script src="scripts.js"></script>
+    <script src="moment.min.js"></script>
 </body>
 </html>
