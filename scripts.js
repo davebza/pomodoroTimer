@@ -1,19 +1,21 @@
 //Start time & end time in millisecs:
 var timeStart;
 var timeEnd;
-//start the countdown?:
+//Track whether we're counting down or not:
 var countdown = false;
 // time unit in millisecs for the countdown:
-const sizeOfTimerUnit = 1500000;
+const twentyFiveMins = 1500000;
+const fiveMins = 300000;
 //time left on the clock in millisecs:
 var timerCountdown;
+//pause duration variables, in millisecs:
 var pauseAt;
 var unpauseAt;
 
 //Start the timer on start button click:
 $('#startTimer').click(function timerStart(){
     timeStart = Date.now();
-    timeEnd = timeStart + sizeOfTimerUnit;
+    timeEnd = timeStart + twentyFiveMins;
     outputFormattedEndTime();
     countdown = true;
     return countdown;
@@ -24,7 +26,7 @@ $('#pauseTimer').click(function(){
     if(countdown === true){
         pauseAt = Date.now();
         countdown = false;
-        $('#endTimerActualTime').html("Timer paused.");
+        $('#endTimerActualTime').html("<h2>Timer paused.</h2>");
     }else if(countdown === false && timerCountdown > 0){
         unpauseAt = Date.now();
         var pauseDuration = unpauseAt - pauseAt;
@@ -44,9 +46,10 @@ $('#stopTimer').click(function(){
 //this function outputs the actual end time of the timer to the browser on timer start click:
 function outputFormattedEndTime(){
     var formattedEndTime = moment(timeEnd).format("H:mm:ss A");
-    $('#endTimerActualTime').html("Your timer will end at "+formattedEndTime);
+    $('#endTimerActualTime').html("<h2>Your timer will end at "+formattedEndTime+"</h2>");
 }
 
+//Send the updated timer values to the browser in human readable format:
 function outputCurrentTimerValue(timerCountdown){
     var timeOut = msToTime(timerCountdown);
     $('#timerOutput').html(timeOut);
@@ -76,7 +79,7 @@ function timer(){
 function renderActualTime(){
     now = moment().format("dddd, MMMM Do YYYY, H:mm:ss A");
     //Output to browser:
-    $('#realTimeOut').html("The time is "+ moment().format("H:mm:ss A") + " on " + moment().format("dddd, MMMM Do YYYY"));
+    $('#realTimeOut').html("<p><h2>"+ moment().format("H:mm:ss A") + "</h2></p><p><h2>" + moment().format("dddd, MMMM Do YYYY")+"</h2></p>");
 }
 
 //this function is called every 100 millisecs (by setInterval) - update real time and call timer() if countdown = true:
