@@ -1,6 +1,7 @@
 //Start time & end time in millisecs:
 var timeStart;
 var timeEnd;
+var sessionType;
 //Track whether we're counting down or not:
 var countdown = false;
 // time unit in millisecs for the countdown:
@@ -16,7 +17,18 @@ var unpauseAt;
 $('#startTimer').click(function timerStart(){
     timeStart = Date.now();
     timeEnd = timeStart + twentyFiveMins;
-    outputFormattedEndTime();
+    sessionType = "work";
+    outputFormattedEndTime(sessionType);
+    countdown = true;
+    return countdown;
+});
+
+//Start the timer on start button click:
+$('#break').click(function takeABreak(){
+    timeStart = Date.now();
+    timeEnd = timeStart + fiveMins;
+    sessionType = "break";
+    outputFormattedEndTime(sessionType);
     countdown = true;
     return countdown;
 });
@@ -44,9 +56,14 @@ $('#stopTimer').click(function(){
 });
 
 //this function outputs the actual end time of the timer to the browser on timer start click:
-function outputFormattedEndTime(){
+function outputFormattedEndTime(sessionType){
     var formattedEndTime = moment(timeEnd).format("H:mm:ss A");
-    $('#endTimerActualTime').html("<h2>Your timer will end at "+formattedEndTime+"</h2>");
+    if (sessionType == "work"){
+        $('#endTimerActualTime').html("<h2>Your work session ends at "+formattedEndTime+"</h2>");
+    }else if (sessionType == "break"){
+        $('#endTimerActualTime').html("<h2>Your break session ends at "+formattedEndTime+"</h2>");
+    }
+
 }
 
 //Send the updated timer values to the browser in human readable format:
