@@ -43,7 +43,7 @@ $('#pauseTimer').click(function(){
         unpauseAt = Date.now();
         var pauseDuration = unpauseAt - pauseAt;
         timeEnd = timeEnd + pauseDuration;
-        outputFormattedEndTime();
+        outputFormattedEndTime(sessionType);
         countdown = true;
     }
 });
@@ -61,7 +61,7 @@ function outputFormattedEndTime(sessionType){
     if (sessionType == "work"){
         $('#endTimerActualTime').html("<h2>Your work session ends at "+formattedEndTime+"</h2>");
     }else if (sessionType == "break"){
-        $('#endTimerActualTime').html("<h2>Your break session ends at "+formattedEndTime+"</h2>");
+        $('#endTimerActualTime').html("<h2>Your break ends at "+formattedEndTime+"</h2>");
     }
 
 }
