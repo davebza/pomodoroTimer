@@ -1,19 +1,58 @@
-// This file is for the JS that will be needed to run a pomodoro timer.
-timerStartValue = Date.now();
-timerEndValue = timerStartValue + 1500000;
-var outputWithMoment = moment(timerEndValue).format("H:mm:ss A");
-$('#endTimerActualTime').html("Your timer will end at "+outputWithMoment);
+//Start time & end time in millisecs:
+var timeStart;
+var timeEnd;
+//start the countdown?:
 var countdown = false;
+// time unit in millisecs for the countdown:
+const sizeOfTimerUnit = 1500000;
+//time left on the clock in millisecs:
+var timerCountdown;
+var pauseAt;
+var unpauseAt;
 
-function timer(){
-    var timerCountdown = timerEndValue - Date.now();
+//Start the timer on start button click:
+$('#startTimer').click(function timerStart(){
+    timeStart = Date.now();
+    timeEnd = timeStart + sizeOfTimerUnit;
+    outputFormattedEndTime();
+    countdown = true;
+    return countdown;
+});
+
+//on click pause button, halt timer, and reset the end value:
+$('#pauseTimer').click(function(){
+    if(countdown === true){
+        pauseAt = Date.now();
+        countdown = false;
+        $('#endTimerActualTime').html("Timer paused.");
+    }else if(countdown === false && timerCountdown > 0){
+        unpauseAt = Date.now();
+        var pauseDuration = unpauseAt - pauseAt;
+        timeEnd = timeEnd + pauseDuration;
+        outputFormattedEndTime();
+        countdown = true;
+    }
+});
+
+//On click stop button, end timer and reset, and clear the actual end time area of the browser:
+$('#stopTimer').click(function(){
+    countdown = false;
+    $('#endTimerActualTime').html("");
+    $('#timerOutput').html("25:00");
+});
+
+//this function outputs the actual end time of the timer to the browser on timer start click:
+function outputFormattedEndTime(){
+    var formattedEndTime = moment(timeEnd).format("H:mm:ss A");
+    $('#endTimerActualTime').html("Your timer will end at "+formattedEndTime);
+}
+
+function outputCurrentTimerValue(timerCountdown){
     var timeOut = msToTime(timerCountdown);
     $('#timerOutput').html(timeOut);
 }
 
-//Convert millisecs to minutes and secs:
-//(from Stackoverflow:
-// http://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript):
+//this function converts millisec to human readable time:
 function msToTime(duration) {
     var   seconds = parseInt((duration/1000)%60);
     var minutes = parseInt((duration/(1000*60))%60);
@@ -22,35 +61,31 @@ function msToTime(duration) {
     return minutes + ":" + seconds;
 }
 
-//render function:
-function render(){
+//Update the countdown timer if there is time left, and output to browser:
+function timer(){
+    timerCountdown = timeEnd - Date.now();
+    if (timerCountdown > 0) {
+        outputCurrentTimerValue(timerCountdown);
+    } else if (timerCountdown < 0){
+        countdown = false;
+        return countdown;
+    }
+}
+
+//output the real time to browser:
+function renderActualTime(){
     now = moment().format("dddd, MMMM Do YYYY, H:mm:ss A");
     //Output to browser:
     $('#realTimeOut').html("The time is "+ moment().format("H:mm:ss A") + " on " + moment().format("dddd, MMMM Do YYYY"));
 }
 
-function update(){
-    if(countdown === true){
+//this function is called every 100 millisecs (by setInterval) - update real time and call timer() if countdown = true:
+function main(){
+    renderActualTime();
+    if (countdown === true){
         timer();
     }
 }
 
-$('#startTimer').click(function(){
-    console.log("click");
-    timerStartValue = Date.now();
-    timerEndValue = timerStartValue + 1500000;
-    var outputWithMoment = moment(timerEndValue).format("H:mm:ss A");
-    $('#endTimerActualTime').html("Your timer will end at "+outputWithMoment);
-    countdown = true;
-    console.log(countdown);
-    return countdown;
-});
-
-//Main program calls:
-// First, call render function to set up the clock on page load:
-render();
-// then update:
-//Actual Time:
-setInterval(render, 10);
-//The timer:
-setInterval(update, 10);
+//main program:
+setInterval(main, 100);
