@@ -1,34 +1,21 @@
 # Pomodoro Timer!
 > A productivity timer done in Javascript, HTML and CSS.
 
-One to two paragraph statement about your product and what it does.
+You can select 25 minute work sessions and 5 minute break sessions. Both of these can be paused.
 
-![](images/readmePreview.jpg)
+Each session type will also show the exact end time of the session, and appropriate messages replace the end time if the timer is paused.
+
+An accurate date and time is also output to the browser at all times.
+
+![](images/readmePreview.png)
 
 ## Installation
 
+Download all files, preserve folder hierarchy, and open index.html in a web browser.
+
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-## Development setup
-
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
-
-## Release History
-
-* 0.2.1
-    * CHANGE: Update docs (module code remains unchanged)
-* 0.2.0
-    * CHANGE: Remove `setDefaultXYZ()`
-    * ADD: Add `init()`
-* 0.1.1
-    * FIX: Crash when calling `baz()` (Thanks @GenerousContributorName!)
-* 0.1.0
-    * The first proper release
-    * CHANGE: Rename `foo()` to `bar()`
-* 0.0.1
-    * Work in progress
+Need to get things done? Break up your efforts into short goals, and give yourself 25 minutes to hit your target. When your time is done, take a five minute break and then repeat! You'll be smashing productivity records in no time!
 
 ## Meta
 
